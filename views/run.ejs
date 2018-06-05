@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Run</title>
+    <link rel='stylesheet' href='/stylesheets/main.css'>
+</head>
+<body>
+
+<button><a href='/add'>Add More Products</a></button>
+
+    <h3>Here are all your listed products</h3>
+
+        <%product.forEach(function(product){%>
+            
+            <% if(product.net < 0){ %>
+                <p class='red'><%=product.net%></p>
+            <%}else{%>
+                <p class='blue'><%=product.net%></p>
+            <%}%>
+        <% }); %>
+
+    <link rel='stylesheet' href='/stylesheets/main.css'>
+
+</body>
+</html>

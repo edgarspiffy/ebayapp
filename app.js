@@ -8,6 +8,7 @@ var express = require('express'),
 
     mongoose.connect('mongodb://localhost/ebayapp');
     app.use(bodyParser.urlencoded({extended:true}));
+    app.use(express.static(__dirname+'/public'));
     app.set('view engine','ejs');
 
 
@@ -73,7 +74,15 @@ var express = require('express'),
         });
     });
 
-
+    app.get('/run',function(req,res){
+        Product.find({},function(err,product){
+            if(err){
+                console.log(err);
+            }else{
+                res.render('run',{product:product});
+            }
+        });
+    });
 
     app.listen(3000,'127.0.0.1',function(){
         console.log('you\'re doing great keep going');
