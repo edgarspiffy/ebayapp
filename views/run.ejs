@@ -1,25 +1,83 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Run</title>
     <link rel='stylesheet' href='/stylesheets/main.css'>
 </head>
-<body>
+<body> -->
+<% include partials/header%>
 
+<form action='/update' method='post'>
+    <button>update</button>
+</form>
 <button><a href='/add'>Add More Products</a></button>
-
-    <h3>Here are all your listed products</h3>
+<table style='width:100%'>
+    <tr>
+        <th>net</th>
+        <th>stock</th>
+        <th>online avalability</th>
+        <th>selling price</th>
+        <th>tax fee</th>
+        <th>ebay fee</th>
+        <th>paypal fee</th>
+        <th>Product Link</th>
+        <th>Delete</th>
+        <th>Update</th>
+    </tr>
 
         <%product.forEach(function(product){%>
-            
             <% if(product.net < 0){ %>
-                <p class='red'><%=product.net%></p>
+                        <tr class='red'>
+                            <td> <%=product.net%></td>
+                            <td> <%=product.stock%></td>
+                            <td> <%=product.availableOnline%></td>
+                            <td> <%=product.sellingPrice%></td>
+                            <td> <%=product.tax%></td>
+                            <td> <%=product.ebayFee%></td>
+                            <td> <%=product.paypalFee%></td>
+                            <td>  <a href='<%=product.productUrl%>' target="_blank">Link</a></td>
+                            <td>
+                            <form action='/delete/<%=product._id%>?_method=DELETE' method='POST'>
+                                    <button>Delete</button>
+                            </form >
+                            </td>
+                            <td><a href='/edit/<%=product._id%>'>Click</a></td>
+                        </tr>
             <%}else{%>
-                <p class='blue'><%=product.net%></p>
+                        <tr class='blue'>
+                            <td> <%=product.net%></td>
+                            <td> <%=product.stock%></td>
+                            <td> <%=product.availableOnline%></td>
+                            <td> <%=product.sellingPrice%></td>
+                            <td> <%=product.tax%></td>
+                            <td> <%=product.ebayFee%></td>
+                            <td> <%=product.paypalFee%></td>
+                            <td>  <a href='<%=product.productUrl%>' target="_blank">Link</a></td>
+                            <td>
+                                    <form action='/delete/<%=product._id%>?_method=DELETE' method='POST'>
+                                            <button>Delete</button>
+                                    </form >
+                            </td>
+                            <td><a href='edit/<%=product._id%>'>Click</a></td>
+                        </tr>
             <%}%>
         <% }); %>
+ </table>
 
-    <link rel='stylesheet' href='/stylesheets/main.css'>
+    <% include partials/footer%>
+<!-- 
+    sellingPrice:Number,
+    itemId:Number,
 
-</body>
-</html>
+    name:String,
+    price:Number,
+    productUrl:String,
+
+    standardShipRate:Number,
+    stock:String,
+    availableOnline:Boolean,
+
+    tax:Number,
+    ebayFee:Number,
+    paypalFee:Number,
+    net:Number -->
