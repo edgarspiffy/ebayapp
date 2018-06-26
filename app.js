@@ -13,56 +13,48 @@ var express = require('express'),
     app.use(methodOverride('_method'));
     app.set('view engine','ejs');
 
+//API KEY
+//2nb5kyd94fhvu2wd92ujsdrd
 
-
+    //Home Page Route Redirect
     app.get('/',function(req,res){
         res.redirect('/add');
     });
-
+    //Redirect from Above
     app.get('/add',function(req,res){
         res.render('add');
     });
 
-    // function seedDB(){
-    //     Product.remove({},function(err){
-    //         if(err){
-    //             console.log(err);
-    //         }else{
-    //             console.log('removed products');
-    //             //create new items
-    //             //enter all info here and create one with the same info that is colliding
-    //         }
-    //     });
-    
-    // }
-
-    // seedDB();
-
-//API KEY
-//2nb5kyd94fhvu2wd92ujsdrd
+    //Add Route
     app.post('/add',function(req,res){
+        //Collects selling price and item id
         var sellingPrice=req.body.sellingPrice;
         var itemId=req.body.itemId;
+        //API Key Request for information
         request('http://api.walmartlabs.com/v1/items/'+itemId+'?apiKey=2nb5kyd94fhvu2wd92ujsdrd&format=json',function(error,response,body){
+            //Handle Error
             if(error || response.statusCode !==200){
                 console.log('sorry this item doesn\'t exist');
                 return res.redirect('/add');
             }else{
+                //Parsed the JSON Data
                 var parsedData=JSON.parse(body);
-
+                //Assigned variables to collected data
                 var name=(parsedData['name']); 
                 var price=(parsedData['salePrice']); 
                 var productUrl=(parsedData['productUrl']);
 
-               
+            
                 var standardShipRate=(parsedData['standardShipRate']);
                 var stock=(parsedData['stock']); 
                 var availableOnline=(parsedData['availableOnline']);
                 
+                //Arithmathic logic for Fees
                 var tax=price *.08;
                 var ebayFee=sellingPrice * .1;
                 var paypalFee=(sellingPrice * .029) +.3;
                 var net=sellingPrice-(ebayFee+paypalFee+price+tax+standardShipRate);
+                    //Create object variable containing all collected data
                     var itemInfo={
                         sellingPrice:sellingPrice,
                         itemId:itemId,
@@ -80,6 +72,7 @@ var express = require('express'),
                         paypalFee:paypalFee,
                         net:net 
                     };
+                    //Create that object in database
                     Product.create(itemInfo,function(err){
                         if(err){
                             console.log('error');
@@ -91,21 +84,22 @@ var express = require('express'),
         });
     });
 
+
+
+    //Displays Data Route
     app.get('/run',function(req,res){
         Product.find({},function(err,product){
             if(err){
                 console.log(err);
             }else{
-                res.render('run',{product:product});
+                res.render('display',{product:product});
             }
         });
     });
 
-function updatenow(){
-    console.log('hi');
-}
 
-app.post('/update',function(req,res){
+    //Updated Post
+    app.post('/update',function(req,res){
     Product.find({},function(err,product){
         product.forEach(function(product){
             request('http://api.walmartlabs.com/v1/items/'+product.itemId+'?apiKey=2nb5kyd94fhvu2wd92ujsdrd&format=json',function(error,response,body){
@@ -145,6 +139,7 @@ app.post('/update',function(req,res){
     });
 });
 
+//Edit Route
 app.get('/edit/:id',function(req,res){
     Product.findById(req.params.id,function(err,product){
         if(err){
@@ -156,7 +151,7 @@ app.get('/edit/:id',function(req,res){
    
 });
 
-//EDIT ROUTE
+//EDIT ROUTE submit
 app.put('/edit/:id',function(req,res){
     Product.findByIdAndUpdate(req.params.id,req.body.sellingPrice,function(err,updatedPrice){
         if(err){
@@ -188,6 +183,13 @@ app.delete('/delete/:id',function(req,res){
 
 });
 
+
+//Specifying page name
+app.get('/test',function(req,res){
+    res.render('test',{page_name:'test'});
+})
+
+//Listen to app
     app.listen(3000,'127.0.0.1',function(){
         console.log('you\'re doing great keep going');
     });
