@@ -7,6 +7,30 @@
 <body> -->
 <% include partials/header%>
 
+
+<h3 style='text-align: left;'>Track Your Listings</h3>
+
+<div style='width:30%; margin:25px auto;'>
+    <form action='/add' method='post'>
+        
+        <p style='margin:-1px'>Selling Price</p>
+        <input class='form-control' type='number' name='sellingPrice' placeholder='' step=".01">
+        
+      
+         <p style='margin:-1px'>item ID</p>
+        <input class='form-control' type='number' name='itemId' placeholder=''>
+       
+        
+        <button class='btn btn-md btn-primary btn-block'>Add</button>
+       
+    </form>
+  
+</div>
+<h4 style='text-align: center;'><a href='/run' class="text-secondary">Run Monitor</a></h4>
+
+
+
+
 <form action='/update' method='post'>
     <button>update</button>
 </form>

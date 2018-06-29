@@ -18,7 +18,7 @@ var express = require('express'),
 
     //Home Page Route Redirect
     app.get('/',function(req,res){
-        res.redirect('/add');
+        res.render('display');
     });
     //Redirect from Above
     app.get('/add',function(req,res){
@@ -77,7 +77,7 @@ var express = require('express'),
                         if(err){
                             console.log('error');
                         }else{
-                            res.redirect('/add');
+                            res.redirect('/run');
                         }
                     });
             }
@@ -188,6 +188,17 @@ app.delete('/delete/:id',function(req,res){
 app.get('/test',function(req,res){
     res.render('test',{page_name:'test'});
 })
+
+app.post('/null',function(req,res){
+    var nullTest=req.body.null;
+    if(!nullTest.length){
+        console.log('this is empty');
+    }else{
+        console.log(req.body.null);
+        console.log('this route is working');
+        res.redirect('/test');
+    }
+});
 
 //Listen to app
     app.listen(3000,'127.0.0.1',function(){
