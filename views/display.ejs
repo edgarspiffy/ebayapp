@@ -11,7 +11,7 @@
 <h3 style='text-align: left;'>Track Your Listings</h3>
 
 <div style='width:30%; margin:25px auto;'>
-    <form action='/add' method='post'>
+    <form action='/' method='post'>
         
         <p style='margin:-1px'>Selling Price</p>
         <input class='form-control' type='number' name='sellingPrice' placeholder='' step=".01">
@@ -24,17 +24,13 @@
         <button class='btn btn-md btn-primary btn-block'>Add</button>
        
     </form>
-  
+    <form action='/update' method='POST'>
+        <button>Update Listings</button>
+        <input type="submit">
+    </form>
+       
 </div>
-<h4 style='text-align: center;'><a href='/run' class="text-secondary">Run Monitor</a></h4>
 
-
-
-
-<form action='/update' method='post'>
-    <button>update</button>
-</form>
-<button><a href='/add'>Add More Products</a></button>
 <table style='width:100%'>
     <tr>
         <th>net</th>
@@ -61,7 +57,7 @@
                             <td> <%=product.paypalFee%></td>
                             <td>  <a href='<%=product.productUrl%>' target="_blank">Link</a></td>
                             <td>
-                            <form action='/delete/<%=product._id%>?_method=DELETE' method='POST'>
+                            <form action='/<%=product._id%>?_method=DELETE' method='POST'>
                                     <button>Delete</button>
                             </form >
                             </td>
@@ -78,7 +74,7 @@
                             <td> <%=product.paypalFee%></td>
                             <td>  <a href='<%=product.productUrl%>' target="_blank">Link</a></td>
                             <td>
-                                    <form action='/delete/<%=product._id%>?_method=DELETE' method='POST'>
+                                    <form action='/<%=product._id%>?_method=DELETE' method='POST'>
                                             <button>Delete</button>
                                     </form >
                             </td>
