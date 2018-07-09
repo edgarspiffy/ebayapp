@@ -8,6 +8,7 @@ var productSchema = new Schema({
     name:String,
     price:Number,
     productUrl:String,
+    upc:Number,
 
     standardShipRate:Number,
     stock:String,
@@ -16,7 +17,17 @@ var productSchema = new Schema({
     tax:Number,
     ebayFee:Number,
     paypalFee:Number,
-    net:Number
+    net:Number,
+
+    //added stuff
+    categoryPath:String,
+    shortDescription:String,
+    longDescription:String,
+    brandName:String,
+    modelNumber:String,
+    largeImage:String,
+    productUrl:String
+  
 });
 
 module.exports=mongoose.model('Product',productSchema);

@@ -1,7 +1,7 @@
 <% include partials/header%>
 
-<h3 style='text-align: center;'>Current Selling Price = <%=product.sellingPrice%></h3>
-<h3 style='text-align: center;'>Net Profit= <%=product.net%> </h3>
+<h3 style='text-align: center;'>Current Selling Price = <%=product.sellingPrice.toFixed(2)%></h3>
+<h3 style='text-align: center;'>Net Profit= <%=product.net.toFixed(2)%> </h3>
 <div style='width:30%; margin:25px auto;'>
    
     <form action='/edit/<%=product._id%>?_method=PUT' method='POST'>

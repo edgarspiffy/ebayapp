@@ -1,87 +1,72 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Run</title>
-    <link rel='stylesheet' href='/stylesheets/main.css'>
-</head>
-<body> -->
+
 <% include partials/header%>
-
-
 <h3 style='text-align: left;'>Track Your Listings</h3>
 
 <div style='width:30%; margin:25px auto;'>
-    <form action='/' method='post'>
-        
+    <form action='/display' method='POST'>
         <p style='margin:-1px'>Selling Price</p>
         <input class='form-control' type='number' name='sellingPrice' placeholder='' step=".01">
-        
-      
          <p style='margin:-1px'>item ID</p>
         <input class='form-control' type='number' name='itemId' placeholder=''>
-       
-        
         <button class='btn btn-md btn-primary btn-block'>Add</button>
-       
     </form>
     <form action='/update' method='POST'>
-        <button>Update Listings</button>
         <input type="submit">
     </form>
-       
 </div>
 
 <table style='width:100%'>
+    <!-- Table Header -->
     <tr>
-        <th>net</th>
+        <th>Product</th>
+        <th>Profit</th>
+        <th>selling price</th>
         <th>stock</th>
         <th>online avalability</th>
-        <th>selling price</th>
         <th>tax fee</th>
         <th>ebay fee</th>
         <th>paypal fee</th>
-        <th>Product Link</th>
+        <th>UPC</th>
         <th>Delete</th>
-        <th>Update</th>
     </tr>
-
+        <!-- Class Logic -->
         <%product.forEach(function(product){%>
-            <% if(product.net < 0){ %>
-                        <tr class='red'>
-                            <td> <%=product.net%></td>
-                            <td> <%=product.stock%></td>
-                            <td> <%=product.availableOnline%></td>
-                            <td> <%=product.sellingPrice%></td>
-                            <td> <%=product.tax%></td>
-                            <td> <%=product.ebayFee%></td>
-                            <td> <%=product.paypalFee%></td>
-                            <td>  <a href='<%=product.productUrl%>' target="_blank">Link</a></td>
-                            <td>
-                            <form action='/<%=product._id%>?_method=DELETE' method='POST'>
-                                    <button>Delete</button>
-                            </form >
-                            </td>
-                            <td><a href='/edit/<%=product._id%>'>Click</a></td>
-                        </tr>
-            <%}else{%>
-                        <tr class='blue'>
-                            <td> <%=product.net%></td>
-                            <td> <%=product.stock%></td>
-                            <td> <%=product.availableOnline%></td>
-                            <td> <%=product.sellingPrice%></td>
-                            <td> <%=product.tax%></td>
-                            <td> <%=product.ebayFee%></td>
-                            <td> <%=product.paypalFee%></td>
-                            <td>  <a href='<%=product.productUrl%>' target="_blank">Link</a></td>
-                            <td>
-                                    <form action='/<%=product._id%>?_method=DELETE' method='POST'>
-                                            <button>Delete</button>
-                                    </form >
-                            </td>
-                            <td><a href='edit/<%=product._id%>'>Click</a></td>
-                        </tr>
-            <%}%>
-        <% }); %>
- </table>
+        <%if(product.net <0){%>
+            <tr class='red'>
+        <%}else{%>
+            <tr class='blue'>
+        <%}%>
+        <td><a href='/product/<%=product.id%>'><%=product.name.substring(0,15)%></a></td>
+        <td> <%=product.net.toFixed(2)%></td>
+        <!-- THIS IS WHAT I NEED TO DISCECT 
+        <td><a href='/edit/<%=product._id%>'><%=product.sellingPrice.toFixed(2)%></a></td> -->
+        <td>
+            <form action='/display/<%=product._id%>?_method=PUT' method='POST'>
+                <input type="number" placeholder="<%=product.sellingPrice.toFixed(2)%>" name='sellingPrice'>
+            </form>
+        </td>
 
-    <% include partials/footer%>
+        <td> <%=product.stock%></td>
+        <td> <%=product.availableOnline%></td>
+
+     
+        <td> <%=product.tax.toFixed(2)%></td>
+        <td> <%=product.ebayFee.toFixed(2)%></td>
+        <td> <%=product.paypalFee.toFixed(2)%></td>
+    
+        <td><a href='http://www.upcitemdb.com/upc/<%=product.upc%>' target="_blank"><%=product.upc%></a></td>
+   
+        <td>
+        <form action='/<%=product._id%>?_method=DELETE' method='POST'>
+                <button>Delete</button>
+        </form >
+        </td>
+
+    </tr>
+    <%})%>
+
+  
+    </td>
+
+ </table>
+<% include partials/footer%>
