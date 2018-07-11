@@ -65,11 +65,11 @@
 <hr>
 
 
-<img src='<%=product.largeImage%>'>
-<hr>
-<img src='<%=product.imageOne%>'>
-
-
+<%var i;%>
+<%for (i = 0; i < product.allImages.length; i++) { %>
+    <hr>
+    <img src='<%=product.allImages[i].largeImage%>'>
+<%}%>
 
 
 <% include partials/footer%>

@@ -35,73 +35,66 @@ var xlist = [
 function awesome(){
 xlist.forEach(function(id){
     sellingPrice=0;
-    console.log(id);
 request('http://api.walmartlabs.com/v1/items/'+id+'?apiKey=2nb5kyd94fhvu2wd92ujsdrd&format=json',function(error,response,body){
     //Handle Error
     if(error || response.statusCode !==200){
-        console.log('sorry this item doesn\'t exist');
+        console.log('Could not request Item '+id);
     }else{
-        //Parsed the JSON Data
-        var parsedData=JSON.parse(body);
-        //Assigned variables to collected data
-        var name=(parsedData['name']); 
-        var price=(parsedData['salePrice']); 
-        var productUrl=(parsedData['productUrl']);
-        var upc =(parsedData['upc']);
-        
-
-    
-        var standardShipRate=(parsedData['standardShipRate']);
-        var stock=(parsedData['stock']); 
-        var availableOnline=(parsedData['availableOnline']);
-
-        var categoryPath=(parsedData['categoryPath']);
-        var shortDescription=(parsedData['shortDescription']);
-        var longDescription=(parsedData['longDescription']);
-        var brandName=(parsedData['brandName']);
-        var modelNumber=(parsedData['modelNumber']);
-        
-        //Arithmathic logic for Fees
-        var tax=price *.08;
-        var ebayFee=sellingPrice * .1;
-        var paypalFee=(sellingPrice * .029) +.3;
-        var net=sellingPrice-(ebayFee+paypalFee+price+tax+standardShipRate);
-            //Create object variable containing all collected data
-            var itemInfo={
-                sellingPrice:sellingPrice,
-                itemId:id,
-
-                name:name,
-                price:price,
-                productUrl:productUrl,
-                upc:upc,
-
-                categoryPath:categoryPath,
-                shortDescription:shortDescription,
-                longDescription:longDescription,
-                brandName:brandName,
-                modelNumber:modelNumber,
-            
-                standardShipRate:standardShipRate,
-                stock:stock,
-                availableOnline:availableOnline,
-            
-                tax:tax,
-                ebayFee:ebayFee,
-                paypalFee:paypalFee,
-                net:net 
-            };
+         //Parsed the JSON Data
+         var parsedData=JSON.parse(body);
+         //Assigned variables to collected data
+         var name=(parsedData['name']); 
+         var price=(parsedData['salePrice']); 
+         var productUrl=(parsedData['productUrl']);
+         var upc =(parsedData['upc']);
+         //Availability Information
+         var standardShipRate=(parsedData['standardShipRate']);
+         var stock=(parsedData['stock']); 
+         var availableOnline=(parsedData['availableOnline']);
+         //Additional Product Information
+         var categoryPath=(parsedData['categoryPath']);
+         var shortDescription=(parsedData['shortDescription']);
+         var longDescription=(parsedData['longDescription']);
+         var brandName=(parsedData['brandName']);
+         var modelNumber=(parsedData['modelNumber']);
+         //Pictures
+         var allImages=(parsedData['imageEntities']);
+         //Arithmathic logic for Fees   
+         var tax=price *.08;
+         var ebayFee=sellingPrice * .1;
+         var paypalFee=(sellingPrice * .029) +.3;
+         var net=sellingPrice-(ebayFee+paypalFee+price+tax+standardShipRate);
+             //Create object variable containing all collected data
+             var itemInfo={
+                 sellingPrice:sellingPrice,
+                 itemId:id,
+                 name:name,
+                 price:price,
+                 productUrl:productUrl,
+                 upc:upc,
+                 standardShipRate:standardShipRate,
+                 stock:stock,
+                 availableOnline:availableOnline,
+                 categoryPath:categoryPath,
+                 shortDescription:shortDescription,
+                 longDescription:longDescription,
+                 brandName:brandName,
+                 modelNumber:modelNumber,
+                 allImages:allImages,
+                 tax:tax,
+                 ebayFee:ebayFee,
+                 paypalFee:paypalFee,
+                 net:net,
+             };
             //Create that object in database
             Product.create(itemInfo,function(err){
                 if(err){
-                    console.log('error was not able to save in the database');
-                }else{
-                    console.log('all is saved :)')
+                    console.log('Database could not save product '+id);
                 }
             });
     }
 });
 });
 }
-module.exports=awesome;
 
+module.exports=awesome;

@@ -88,19 +88,15 @@ router.post('/update',function(req,res){
   
 //closing for main
 });
-
-
 //DELETE ROUTE
 router.delete('/:id',function(req,res){
     Product.findByIdAndRemove(req.params.id,function(err){
         if(err){
+            console.log('Could not delete product due to');
             console.log(err);
         }else{
             res.redirect('/display');
         }
     });
 });
-
-
-
 module.exports=router;

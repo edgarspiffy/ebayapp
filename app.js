@@ -28,18 +28,7 @@ var express = require('express'),
     //wipe();
 
     //Seed Data
-    //seed();
-
-
-
-
-
-
-
-
-
-
-
+    seed();
 
 
 

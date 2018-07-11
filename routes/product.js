@@ -19,28 +19,23 @@ router.get('/:id',function(req,res){
 router.put('/:id',function(req,res){
     Product.findByIdAndUpdate(req.params.id,req.body.sellingPrice,function(err,product){
         if(err){
+            console.log('Could not update following form due to');
             console.log(err);
         }else{
-            console.log(product);
             product.sellingPrice=req.body.sellingPrice;
             request('http://api.walmartlabs.com/v1/items/'+product.itemId+'?apiKey=2nb5kyd94fhvu2wd92ujsdrd&format=json',function(error,response,body){
                 var parsedData=JSON.parse(body);
-                product.name=(parsedData['name']); 
                 product.price=(parsedData['salePrice']); 
-                product.productUrl=(parsedData['productUrl']);
-                product.upc =(parsedData['upc']);
-
-              
                 product.standardShipRate=(parsedData['standardShipRate']);
                 product.stock=(parsedData['stock']); 
                 product.availableOnline=(parsedData['availableOnline']);
-               
                 product.tax=product.price *.08;
                 product.ebayFee=product.sellingPrice * .1;
                 product.paypalFee=(product.sellingPrice * .029) +.3;
                 product.net=product.sellingPrice-(product.ebayFee+product.paypalFee+product.price+product.tax+product.standardShipRate);
                 product.save(function(err,data){
                     if(err){
+                        console.log('Could not save the new price information due to');
                         console.log(err);
                     }else{
                         res.redirect('/product/'+req.params.id);

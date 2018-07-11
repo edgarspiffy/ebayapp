@@ -26,8 +26,8 @@ var productSchema = new Schema({
     brandName:String,
     modelNumber:String,
     largeImage:String,
-    productUrl:String
-  
+    productUrl:String,
+    allImages:[{largeImage:String}]
 });
 
 module.exports=mongoose.model('Product',productSchema);

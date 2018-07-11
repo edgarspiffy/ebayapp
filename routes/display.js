@@ -27,8 +27,8 @@ router.post('/',function(req,res){
     request('http://api.walmartlabs.com/v1/items/'+itemId+'?apiKey=2nb5kyd94fhvu2wd92ujsdrd&format=json',function(error,response,body){
         //Handle Error
         if(error || response.statusCode !==200){
+            console.log('sorry API request failed for item '+itemId+' due to');
             console.log(error);
-            console.log('sorry this item doesn\'t exist');
             return res.redirect('/display');
         }else{
             //Parsed the JSON Data
@@ -48,14 +48,8 @@ router.post('/',function(req,res){
             var longDescription=(parsedData['longDescription']);
             var brandName=(parsedData['brandName']);
             var modelNumber=(parsedData['modelNumber']);
-            var productUrl=(parsedData['productUrl']);
             //Pictures
-         
-               
-            
-            var largeImage=(parsedData['largeImage']);
-            var imageOne=(parsedData['imageEntities'][0]['largeImage']);
-           
+            var allImages=(parsedData['imageEntities']);
             //Arithmathic logic for Fees   
             var tax=price *.08;
             var ebayFee=sellingPrice * .1;
@@ -72,25 +66,22 @@ router.post('/',function(req,res){
                     standardShipRate:standardShipRate,
                     stock:stock,
                     availableOnline:availableOnline,
-                    tax:tax,
-                    ebayFee:ebayFee,
-                    paypalFee:paypalFee,
-                    net:net,
                     categoryPath:categoryPath,
                     shortDescription:shortDescription,
                     longDescription:longDescription,
                     brandName:brandName,
                     modelNumber:modelNumber,
-                    largeImage:largeImage,
-                    imageOne:imageOne,
-                    productUrl:productUrl
+                    allImages:allImages,
+                    tax:tax,
+                    ebayFee:ebayFee,
+                    paypalFee:paypalFee,
+                    net:net,
                 };
-                console.log(itemInfo);
                 //Create that object in database
                 Product.create(itemInfo,function(err){
                     if(err){
+                        console.log('The following product was not able to be saved '+itemId+' due to the');
                         console.log(err);
-                        console.log('error was not able to save to database');
                     }else{
                         res.redirect('/display'); 
                     }
@@ -98,41 +89,36 @@ router.post('/',function(req,res){
         }
     });
 });
+
 //UPDATE SELLING PRICE 
 router.put('/:id',function(req,res){
     Product.findByIdAndUpdate(req.params.id,req.body.sellingPrice,function(err,product){
         if(err){
-            console.log(err);
+            console.log('Was not able to update the price of the product');
         }else{
-            console.log(product);
             product.sellingPrice=req.body.sellingPrice;
             request('http://api.walmartlabs.com/v1/items/'+product.itemId+'?apiKey=2nb5kyd94fhvu2wd92ujsdrd&format=json',function(error,response,body){
+                //Updating information 
                 var parsedData=JSON.parse(body);
-                product.name=(parsedData['name']); 
+                //Only information that matters
                 product.price=(parsedData['salePrice']); 
-                product.productUrl=(parsedData['productUrl']);
-                product.upc =(parsedData['upc']);
-
-              
                 product.standardShipRate=(parsedData['standardShipRate']);
                 product.stock=(parsedData['stock']); 
                 product.availableOnline=(parsedData['availableOnline']);
-               
+               //Arithmatic with Updated Price
                 product.tax=product.price *.08;
                 product.ebayFee=product.sellingPrice * .1;
                 product.paypalFee=(product.sellingPrice * .029) +.3;
                 product.net=product.sellingPrice-(product.ebayFee+product.paypalFee+product.price+product.tax+product.standardShipRate);
                 product.save(function(err,data){
                     if(err){
+                        console.log('Failed to update form due to');
                         console.log(err);
                     }else{
                         res.redirect('/');
                     }
                 });
-
-
             });
-
         }
     });
 });
