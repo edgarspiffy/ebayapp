@@ -42,7 +42,7 @@
         <td><a href='/edit/<%=product._id%>'><%=product.sellingPrice.toFixed(2)%></a></td> -->
         <td>
             <form action='/display/<%=product._id%>?_method=PUT' method='POST'>
-                <input type="number" placeholder="<%=product.sellingPrice.toFixed(2)%>" name='sellingPrice'>
+                <input type="number" placeholder="<%=product.sellingPrice%>" name='sellingPrice'>
             </form>
         </td>
 
