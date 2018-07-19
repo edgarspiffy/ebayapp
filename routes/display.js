@@ -35,6 +35,7 @@ router.post('/',function(req,res){
             var parsedData=JSON.parse(body);
             //Assigned variables to collected data
             var name=(parsedData['name']); 
+            var active=false;
             var price=(parsedData['salePrice']); 
             var productUrl=(parsedData['productUrl']);
             var upc =(parsedData['upc']);
@@ -58,6 +59,7 @@ router.post('/',function(req,res){
                 //Create object variable containing all collected data
                 var itemInfo={
                     sellingPrice:sellingPrice,
+                    active:active,
                     itemId:itemId,
                     name:name,
                     price:price,

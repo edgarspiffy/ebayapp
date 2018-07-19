@@ -4,6 +4,7 @@ var mongoose=require('mongoose'),
 var productSchema = new Schema({
     sellingPrice:Number,
     itemId:Number,
+    active:Boolean,
 
     name:String,
     price:Number,
