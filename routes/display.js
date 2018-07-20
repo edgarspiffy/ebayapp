@@ -6,8 +6,23 @@ var cheerio = require('cheerio');
 
 
 
-//DISPLAY DATA
+//DISPLAY ACTIVE DATA
 router.get('/',function(req,res){
+    //Found all products with a false attribute!
+
+    //Product.find({"active":"false"},function(err,product){
+    Product.find({"active":"true"},function(err,product){
+        if(err){
+            console.log(err);
+            console.log('sorry data could not be pulled from database');
+        }else{
+            
+            res.render('display',{product:product});
+        }
+    });
+});
+//DISPLAY INACTIVE DATA
+router.get('/inactive',function(req,res){
     //Found all products with a false attribute!
 
     //Product.find({"active":"false"},function(err,product){
@@ -17,7 +32,7 @@ router.get('/',function(req,res){
             console.log('sorry data could not be pulled from database');
         }else{
             
-            res.render('display',{product:product});
+            res.render('inactive',{product:product});
         }
     });
 });
@@ -91,9 +106,49 @@ router.post('/',function(req,res){
                         console.log('The following product was not able to be saved '+itemId+' due to the');
                         console.log(err);
                     }else{
-                        res.redirect('/display'); 
+                        res.redirect('/display/inactive'); 
                     }
                 });
+        }
+    });
+});
+
+//TOGGLE
+router.put('/true/:id',function(req,res){
+    Product.findByIdAndUpdate(req.params.id,req.body.sellingPrice,function(err,product){
+        if(err){
+            console.log(err);
+        }else{
+            console.log(product.active);
+            product.active=!product.active;
+            console.log(product.active);
+            product.save(function(err){
+                if(err){
+                    console.log(err);
+                }else{
+                    res.redirect('/display/inactive');
+                }
+            })
+           
+        }
+    });
+});
+router.put('/false/:id',function(req,res){
+    Product.findByIdAndUpdate(req.params.id,req.body.sellingPrice,function(err,product){
+        if(err){
+            console.log(err);
+        }else{
+            console.log(product.active);
+            product.active=!product.active;
+            console.log(product.active);
+            product.save(function(err){
+                if(err){
+                    console.log(err);
+                }else{
+                    res.redirect('/display');
+                }
+            })
+           
         }
     });
 });
