@@ -4,13 +4,19 @@ var Product=require('../models/product');
 var request = require('request');
 var cheerio = require('cheerio');
 
+
+
 //DISPLAY DATA
 router.get('/',function(req,res){
-    Product.find({},function(err,product){
+    //Found all products with a false attribute!
+
+    //Product.find({"active":"false"},function(err,product){
+    Product.find({"active":"false"},function(err,product){
         if(err){
             console.log(err);
             console.log('sorry data could not be pulled from database');
         }else{
+            
             res.render('display',{product:product});
         }
     });
