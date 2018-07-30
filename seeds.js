@@ -7,53 +7,43 @@ var xlist = [
     189596953,
     49299983,
     54474644,
-    54474639
-    // 39893701,
-    // 362740797,
-    // 33994463,
-    // 39893702,
-    // 37643667,
-    // 515168847,
-    // 542572681,
-    // 39071349,
-    // 13044874,
-    // 846796154,
-    // 19766458,
-    // 17164240,
-    // 17299558,
-    // 695836787,
-    // 13917731,
-    // 21345449,
-    // 11011860,
-    // 13917728,
-    // 211308352,
-    // 541039777
+    54474639,
+    39893701,
+    362740797,
+    33994463,
+    39893702,
+    37643667,
+    515168847,
+    542572681,
+    39071349,
+    13044874,
+    846796154,
+    19766458,
+    17164240,
+    17299558,
+    695836787,
+    13917731,
+    21345449,
+    11011860,
+    13917728,
+    211308352,
+    541039777,
+    673871100,
+    509065700,
+    35909076,
+    785531227,
+    33168839,
+    906284333,
+    173018464,
+    151603991,
+    54906104,
+    45091482,
+    32803235,
+    54322901,
+    846982822,
+    43371490,
+    104359126
  ]
-
-
-
-// function awesome(){
-// for (i=0;i<xlist.length;i++){
-//     request('http://api.walmartlabs.com/v1/items/'+xlist[i]+'?apiKey=2nb5kyd94fhvu2wd92ujsdrd&format=json',function(error,response,body){
-//         setInterval(function(){
-
-   
-//             if(error){
-//                 console.log('error');
-//             }else{
-//                 console.log('request')
-//                 var parsedData=JSON.parse(body);
-//                 var name=(parsedData['name']); 
-//                 console.log(name);
-//             }
-//         },2000);
-
-//     });
-    
-// }
-// }
-
-
 
 
 var i = -1;
@@ -67,9 +57,7 @@ function awesome(){
                 if(error || response.statusCode !==200){
                 console.log('Could not request Item ');
                 console.log(error);
-
                 }else{
-
                 //Parsed the JSON Data
                 var parsedData=JSON.parse(body);
                 var itemId = xlist[i];
@@ -125,7 +113,6 @@ function awesome(){
                         console.log('Database could not save product ');
                     }else{
                         console.log('saved data')
-                        
                     }
                     awesome();
                 });

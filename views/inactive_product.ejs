@@ -41,7 +41,7 @@
                 <!-- <td><a href='/edit/<%=product._id%>'><%=product.sellingPrice.toFixed(2)%></a></td> -->
                 <td>
                     <form action='/inactive/product/<%=product.id%>?_method=PUT' method='post'>
-                        <input type="number" name='sellingPrice' placeholder='<%=product.sellingPrice.toFixed(2)%>'>
+                        <input type="number" name='sellingPrice' placeholder='<%=product.sellingPrice.toFixed(2)%>' step=".01">
                     </form>
                 </td>
                 <td> <%=product.stock%></td>

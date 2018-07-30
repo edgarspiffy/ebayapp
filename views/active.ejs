@@ -6,7 +6,7 @@
 <div style='width:30%; margin:25px auto;'>
     <form action='/active' method='POST'>
         <p style='margin:-1px'>Selling Price</p>
-        <input class='form-control' type='number' name='sellingPrice' placeholder='' step=".01">
+        <input class='form-control' type='number' name='sellingPrice' placeholder=''>
          <p style='margin:-1px'>item ID</p>
         <input class='form-control' type='number' name='itemId' placeholder=''>
         <button class='btn btn-md btn-primary btn-block'>Add</button>
@@ -55,7 +55,7 @@
         <td><a href='/edit/<%=product._id%>'><%=product.sellingPrice.toFixed(2)%></a></td> -->
         <td>
             <form action='/active/<%=product._id%>?_method=PUT' method='POST'>
-                <input type="number" placeholder="<%=product.sellingPrice%>" name='sellingPrice' >
+                <input type="number" placeholder="<%=product.sellingPrice%>" name='sellingPrice' step=".01">
             </form>
         </td>
 
