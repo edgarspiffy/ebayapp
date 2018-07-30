@@ -6,9 +6,10 @@ var express = require('express'),
     bodyParser=require('body-parser'),
     methodOverride=require('method-override'),
     wipe=require('./wipe'),
-    displayRoute=require('./routes/display'),
-    productRoute=require('./routes/product'),
-    miscRoute=require('./routes/misc'),
+    // displayRoute=require('./routes/display'),
+    // productRoute=require('./routes/product'),
+    activeRoute=require('./routes/active'),
+    inactiveRoute=require('./routes/inactive'),
     seed=require('./seeds'),
     Product=require('./models/product');
 
@@ -17,9 +18,11 @@ var express = require('express'),
     app.use(express.static(__dirname+'/public'));
     app.use(methodOverride('_method'));
 
-    app.use('/display',displayRoute);
-    app.use('/product',productRoute);
-    app.use(miscRoute);
+    // app.use('/display',displayRoute);
+    // app.use('/product',productRoute);
+    app.use('/active',activeRoute);
+    app.use('/inactive',inactiveRoute);
+  
 
     app.set('view engine','ejs');
 
@@ -28,7 +31,7 @@ var express = require('express'),
     //wipe();
 
     //Seed Data
-//seed();
+    //seed();
 
     
 

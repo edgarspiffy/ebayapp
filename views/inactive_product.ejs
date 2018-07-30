@@ -1,0 +1,76 @@
+<% include partials/header%>
+<div>
+    <p><b>Category:</b> <a href='<%=product.productUrl%>'  target="_blank"><%=product.categoryPath%></a></p>
+    <hr>
+    <p><b>UPC:</b> <%=product.upc%></p>
+    <hr>
+    <p><b>Brand:</b> <%=product.brandName%></p>
+    <hr>
+    <p><b>Model Number:</b> <%=product.modelNumber%></p>
+    <hr>
+</div>
+
+<div>
+    <p><b>Title:</b> <%=product.name%></p>
+    <hr>
+    <p><b>Short Description</b></p>
+    <p><%=product.shortDescription%></p>
+    <hr>
+    <p><b>Long Description</b></p>
+    <p><%=product.longDescription%></p>
+    <hr>
+</div>
+  
+<table style='width:100%'>
+        <tr>
+            
+            <th>Profit</th>
+            <th>selling price</th>
+            <th>stock</th>
+            <th>online avalability</th>
+            <th>tax fee</th>
+            <th>ebay fee</th>
+            <th>paypal fee</th>
+            <th>UPC</th>
+            <th>Delete</th>
+        
+        </tr>
+        <tr>
+               
+                <td> <%=product.net.toFixed(2)%></td>
+                <!-- <td><a href='/edit/<%=product._id%>'><%=product.sellingPrice.toFixed(2)%></a></td> -->
+                <td>
+                    <form action='/inactive/product/<%=product.id%>?_method=PUT' method='post'>
+                        <input type="number" name='sellingPrice' placeholder='<%=product.sellingPrice.toFixed(2)%>'>
+                    </form>
+                </td>
+                <td> <%=product.stock%></td>
+                <td> <%=product.availableOnline%></td>
+        
+             
+                <td> <%=product.tax.toFixed(2)%></td>
+                <td> <%=product.ebayFee.toFixed(2)%></td>
+                <td> <%=product.paypalFee.toFixed(2)%></td>
+            
+                <td><a href='http://www.upcitemdb.com/upc/<%=product.upc%>' target="_blank"><%=product.upc%></a></td>
+           
+                <td>
+                <form action='/inactive/<%=product._id%>?_method=DELETE' method='POST'>
+                        <button>Delete</button>
+                </form >
+                </td>
+
+        </tr>
+</table>
+<hr>
+
+
+<%var i;%>
+<%for (i = 0; i < product.allImages.length; i++) { %>
+    <hr>
+    <img src='<%=product.allImages[i].largeImage%>'>
+<%}%>
+
+
+<% include partials/footer%>
+

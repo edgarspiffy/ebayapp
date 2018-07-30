@@ -26,9 +26,7 @@ var productSchema = new Schema({
     longDescription:String,
     brandName:String,
     modelNumber:String,
-    largeImage:String,
-    productUrl:String,
     allImages:[{largeImage:String}]
 });
-
+//delete large image
 module.exports=mongoose.model('Product',productSchema);

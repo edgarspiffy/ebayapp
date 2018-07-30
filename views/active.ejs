@@ -3,15 +3,15 @@
 <h3 style='text-align: left;'>Track Your Listings</h3>
 
 <div style='width:30%; margin:25px auto;'>
-    <form action='/display' method='POST'>
+    <form action='/active' method='POST'>
         <p style='margin:-1px'>Selling Price</p>
         <input class='form-control' type='number' name='sellingPrice' placeholder='' step=".01">
          <p style='margin:-1px'>item ID</p>
         <input class='form-control' type='number' name='itemId' placeholder=''>
         <button class='btn btn-md btn-primary btn-block'>Add</button>
     </form>
-    <form action='/update' method='POST'>
-        <input type="submit">
+    <form action='/active/update' method='POST'>
+        <button>update</button>
     </form>
 </div>
 
@@ -43,17 +43,17 @@
         <!-- check box
          <td>  <input type="checkbox"></td> -->
          <td>
-             <form action='/display/false/<%=product._id%>?_method=PUT' method='POST'>
+             <form action='/active/toggle/<%=product._id%>?_method=PUT' method='POST'>
                  <button></button>
              </form>
          </td>
-        <td><a href='/product/<%=product.id%>'><%=product.name.substring(0,15)%></a></td>
+        <td><a href='/active/product/<%=product.id%>'><%=product.name.substring(0,15)%></a></td>
         <td> <%=product.net.toFixed(2)%></td>
         <!-- THIS IS WHAT I NEED TO DISCECT 
         <td><a href='/edit/<%=product._id%>'><%=product.sellingPrice.toFixed(2)%></a></td> -->
         <td>
-            <form action='/display/<%=product._id%>?_method=PUT' method='POST'>
-                <input type="number" placeholder="<%=product.sellingPrice%>" name='sellingPrice'>
+            <form action='/active/<%=product._id%>?_method=PUT' method='POST'>
+                <input type="number" placeholder="<%=product.sellingPrice%>" name='sellingPrice' >
             </form>
         </td>
 
@@ -68,7 +68,7 @@
         <td><a href='http://www.upcitemdb.com/upc/<%=product.upc%>' target="_blank"><%=product.upc%></a></td>
    
         <td>
-        <form action='/<%=product._id%>?_method=DELETE' method='POST'>
+        <form action='/active/<%=product._id%>?_method=DELETE' method='POST'>
                 <button>Delete</button>
         </form >
         </td>

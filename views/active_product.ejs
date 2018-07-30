@@ -40,7 +40,7 @@
                 <td> <%=product.net.toFixed(2)%></td>
                 <!-- <td><a href='/edit/<%=product._id%>'><%=product.sellingPrice.toFixed(2)%></a></td> -->
                 <td>
-                    <form action='/product/<%=product.id%>?_method=PUT' method='post'>
+                    <form action='/active/product/<%=product.id%>?_method=PUT' method='post'>
                         <input type="number" name='sellingPrice' placeholder='<%=product.sellingPrice.toFixed(2)%>'>
                     </form>
                 </td>
@@ -55,7 +55,7 @@
                 <td><a href='http://www.upcitemdb.com/upc/<%=product.upc%>' target="_blank"><%=product.upc%></a></td>
            
                 <td>
-                <form action='/<%=product._id%>?_method=DELETE' method='POST'>
+                <form action='/active/<%=product._id%>?_method=DELETE' method='POST'>
                         <button>Delete</button>
                 </form >
                 </td>
