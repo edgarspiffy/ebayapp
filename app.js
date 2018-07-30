@@ -56,3 +56,5 @@ var express = require('express'),
 // app.listen(3000,'127.0.0.1',function(){
 //     console.log('you\'re doing great keep going');
 // });
+
+app.listen(process.env.PORT || 5000)
