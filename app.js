@@ -23,8 +23,19 @@ var express = require('express'),
     app.use('/active',activeRoute);
     app.use('/inactive',inactiveRoute);
   
+    //AUTHENTICATION ROUTE
+    passport=require('passport');
+    LocalStrategy=require('passport-local');
+    passportLocalMongoose=require('passport-local-mongoose');
+    sessions=require('express-session');
 
     app.set('view engine','ejs');
+
+    app.use(sessions({
+        secret:'testing',
+        resave:'false',
+        saveUninitialized:false
+    }));
 
 
     //Clear database
@@ -34,11 +45,6 @@ var express = require('express'),
     //seed();
 
     
-
-
-
-
-
 
 //Listen to app
 app.listen(3000,'127.0.0.1',function(){
