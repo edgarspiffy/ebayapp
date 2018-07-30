@@ -50,7 +50,9 @@ var express = require('express'),
     //Seed Data
     //seed();
 
-    
+app.get('https://secret-gorge-49440.herokuapp.com',function(req,res){
+    res.redirect('/https://secret-gorge-49440.herokuapp.com/active');
+});
 
 //Listen to app
 // app.listen(3000,'127.0.0.1',function(){
