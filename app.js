@@ -13,7 +13,8 @@ var express = require('express'),
     seed=require('./seeds'),
     Product=require('./models/product');
 
-    mongoose.connect('mongodb://localhost/ebayapp');
+    //mongoose.connect('mongodb://localhost/ebayapp');
+    mongoose.connect('mongodb://edgar:abc123@ds259711.mlab.com:59711/ebayapp');
     app.use(bodyParser.urlencoded({extended:true}));
     app.use(express.static(__dirname+'/public'));
     app.use(methodOverride('_method'));
@@ -24,18 +25,23 @@ var express = require('express'),
     app.use('/inactive',inactiveRoute);
   
     //AUTHENTICATION ROUTE
-    passport=require('passport');
-    LocalStrategy=require('passport-local');
-    passportLocalMongoose=require('passport-local-mongoose');
-    sessions=require('express-session');
+    // passport=require('passport');
+    // LocalStrategy=require('passport-local');
+    // passportLocalMongoose=require('passport-local-mongoose');
+    // sessions=require('express-session');
 
     app.set('view engine','ejs');
 
-    app.use(sessions({
-        secret:'testing',
-        resave:'false',
-        saveUninitialized:false
-    }));
+    // app.use(sessions({
+    //     secret:'testing',
+    //     resave:'false',
+    //     saveUninitialized:false
+    // }));
+
+    // app.use(passport.initialize());
+    // app.use(passport.session());
+
+    // passport.use(new LocalStrategy());
 
 
     //Clear database
