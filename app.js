@@ -53,6 +53,6 @@ var express = require('express'),
     
 
 //Listen to app
-app.listen(3000,'127.0.0.1',function(){
-    console.log('you\'re doing great keep going');
-});
+// app.listen(3000,'127.0.0.1',function(){
+//     console.log('you\'re doing great keep going');
+// });
