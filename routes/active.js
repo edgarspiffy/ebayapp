@@ -170,6 +170,24 @@ router.put('/product/:id',function(req,res){
     });
 });
 
+//ADD PRODUCT URL.......ROUTE IS /active/product/url/:id
+router.put('/product/url/:id',function(req,res){
+    Product.findByIdAndUpdate(req.params.id,req.body.ebayProductUrl,function(err,product){
+        if(err){
+            console.log(err);
+        }else{
+            product.ebayProductUrl=req.body.ebayProductUrl;
+            product.save(function(err,data){
+                if(err){
+                    console.log(err);
+                }else{
+                    res.redirect('/active/product/'+req.params.id);
+                }
+            });
+        }
+    });
+});
+
 //TOOGLE ROUTE TO MAKE ITEMS ACTIVE OR INACTIVE....ROUTE IS /active/toggle/:id
 router.put('/toggle/:id',function(req,res){
     Product.findByIdAndUpdate(req.params.id,req.body.sellingPrice,function(err,product){

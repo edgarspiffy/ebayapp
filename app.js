@@ -50,13 +50,13 @@ var express = require('express'),
     //Seed Data
     //seed();
 
-app.get('https://secret-gorge-49440.herokuapp.com',function(req,res){
-    res.redirect('/https://secret-gorge-49440.herokuapp.com/active');
-});
-
-//Listen to app
-// app.listen(3000,'127.0.0.1',function(){
-//     console.log('you\'re doing great keep going');
+// app.get('https://secret-gorge-49440.herokuapp.com',function(req,res){
+//     res.redirect('/https://secret-gorge-49440.herokuapp.com/active');
 // });
 
-app.listen(process.env.PORT || 5000)
+//Listen to app
+app.listen(3000,'127.0.0.1',function(){
+    console.log('you\'re doing great keep going');
+});
+
+// app.listen(process.env.PORT || 5000)

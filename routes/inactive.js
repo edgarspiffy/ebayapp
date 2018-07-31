@@ -127,6 +127,24 @@ router.put('/:id',function(req,res){
     });
 });
 
+//ADD PRODUCT URL.......ROUTE IS /inactive/product/url/:id
+router.put('/product/url/:id',function(req,res){
+    Product.findByIdAndUpdate(req.params.id,req.body.ebayProductUrl,function(err,product){
+        if(err){
+            console.log(err);
+        }else{
+            product.ebayProductUrl=req.body.ebayProductUrl;
+            product.save(function(err,data){
+                if(err){
+                    console.log(err);
+                }else{
+                    res.redirect('/inactive/product/'+req.params.id);
+                }
+            });
+        }
+    });
+});
+
 //INDIVIDIAL INACTIVE PRODUCT PAGE................ROUTE IS /inative/product/:id
 router.get('/product/:id',function(req,res){
     Product.findById(req.params.id,function(err,product){

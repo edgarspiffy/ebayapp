@@ -5,6 +5,7 @@ var productSchema = new Schema({
     sellingPrice:Number,
     itemId:Number,
     active:Boolean,
+    ebayProductUrl:String,
 
     name:String,
     price:Number,

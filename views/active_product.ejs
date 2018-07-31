@@ -68,12 +68,21 @@
 </table>
 <hr>
 
+            <form action='/active/product/url/<%=product.id%>?_method=PUT' method='post'>
+                <input type="text" name='ebayProductUrl' placeholder='Enter Product URL'>
+            </form>
+
+<hr>
+            <p><b>View Live Product:</b> <a href='<%=product.ebayProductUrl%>' target="_blank"><%=product.ebayProductUrl%></a></p>
+<hr>
 
 <%var i;%>
 <%for (i = 0; i < product.allImages.length; i++) { %>
     <hr>
     <img src='<%=product.allImages[i].largeImage%>'>
 <%}%>
+
+
 
 
 <% include partials/footer%>
