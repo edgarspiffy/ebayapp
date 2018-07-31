@@ -23,7 +23,7 @@
   
 <table style='width:100%'>
         <tr>
-            
+            <ht>Toggle</ht>
             <th>Profit</th>
             <th>selling price</th>
             <th>stock</th>
@@ -36,7 +36,11 @@
         
         </tr>
         <tr>
-               
+            <td>
+                <form action='/inactive/toggle/<%=product._id%>?_method=PUT' method='POST'>
+                    <button></button>
+                </form>
+            </td>
                 <td> <%=product.net.toFixed(2)%></td>
                 <!-- <td><a href='/edit/<%=product._id%>'><%=product.sellingPrice.toFixed(2)%></a></td> -->
                 <td>
